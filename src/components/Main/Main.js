@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Menu from '../Menu/Menu';
+import About from '../About/About'
 import DishDetail from '../DishDetail/DishDetail';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -37,6 +38,7 @@ const Main = () => {
             <Header/>
             <Switch>
                 <Route path="/home" component={HomePage} />
+                <Route exact path="/aboutus" component={() => <About leaders={LEADERS} />} />
                 <Route exact path="/menu" component={() => <Menu dishes={DISHES}/>} />
                 <Route path='/menu/:dishId' component={DishWithId} />
                 <Route exact path="/contactus" component={Contact}/>
