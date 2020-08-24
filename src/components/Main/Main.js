@@ -11,18 +11,26 @@ import { COMMENTS } from '../../shared/comments';
 import { PROMOTIONS } from '../../shared/promotions';
 import { LEADERS } from '../../shared/leaders';
 
+const Main = () => {
 
-function Main() {
-    const [selectedDish, setSelectedDish] = useState(null);
-
-    // const onDishSelect = (dishId) => {
-    //     setSelectedDish(dishId);
-    // };
-    const HomePage = () => <Home 
-        dish={DISHES.filter(dish => dish.featured)[0]}
-        promotion={PROMOTIONS.filter(promo => promo.featured)[0]}
-        leader={LEADERS.filter(leader => leader.featured)[0]}
-        />
+    const HomePage = () => {
+        return(
+            <Home 
+                dish={DISHES.filter(dish => dish.featured)[0]}
+                promotion={PROMOTIONS.filter(promo => promo.featured)[0]}
+                leader={LEADERS.filter(leader => leader.featured)[0]}
+            />
+        );
+    };
+    
+    const DishWithId = ({ match }) => {
+        return(
+            <DishDetail 
+                dish={DISHES.filter(dish => dish.id === parseInt(match.params.dishId, 10))[0]} 
+                comments={COMMENTS.filter(comment => comment.dishId === parseInt(match.params.dishId, 10))}
+            />
+        );
+    };
 
     return (
         <div>
@@ -30,6 +38,7 @@ function Main() {
             <Switch>
                 <Route path="/home" component={HomePage} />
                 <Route exact path="/menu" component={() => <Menu dishes={DISHES}/>} />
+                <Route path='/menu/:dishId' component={DishWithId} />
                 <Route exact path="/contactus" component={Contact}/>
                 <Redirect to="/home" />
             </Switch>
