@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Row, Col, Modal, ModalHeader, ModalBody, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 // redux form
 import { Control, LocalForm, Errors } from 'react-redux-form';
@@ -152,7 +153,27 @@ const RenderComments = ({ comments, addComment, dishId }) => {
     }
 };
 
-const DishDetail = ({ dish, comments, addComment }) => {
+const DishDetail = ({ dish, isLoading, errMess, comments, addComment }) => {
+    if (isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (dish != null) 
+
     return (
         <div className="container">
             <div className="row">
